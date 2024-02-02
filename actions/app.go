@@ -53,7 +53,7 @@ func App() *buffalo.App {
 
 		// Protect against CSRF attacks. https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)
 		// Remove to disable this.
-		// app.Use(csrf.New) // disabled in this poc
+		// app.Use(csrf.New) // disabled in this PoC
 
 		// Wraps each request in a transaction.
 		//   c.Value("tx").(*pop.Connection)
@@ -67,6 +67,11 @@ func App() *buffalo.App {
 		app.POST("/remote/logincheck", loginUserCheckHandler).Name("loginSubmitPath")
 
 		app.ServeFiles("/", http.FS(public.FS())) // serve files from the public directory
+
+		app.ErrorHandlers[404] = func(i int, err error, ctx buffalo.Context) error {
+			ctx.Redirect(http.StatusPermanentRedirect, "indexPath()")
+			return nil
+		}
 	})
 
 	return app
