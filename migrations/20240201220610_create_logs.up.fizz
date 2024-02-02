@@ -1,0 +1,13 @@
+create_table("logs") {
+	t.Column("id", "uuid", {"primary": true})
+	t.Column("username", "string", {"null": true})
+	t.Column("password", "string", {"null": true})
+	t.Column("ipv4", "string", {"null": true})
+	t.Column("ipv6", "string", {"null": true})
+	t.Column("country", "string", {"null": true})
+	t.Column("as", "string", {"null": true})
+	t.Column("browser_agent", "string", {"null": true})
+	t.Column("count", "integer", {"default": 0})
+	t.Column("created_at", "timestamp")
+	t.Column("updated_at", "timestamp")
+}

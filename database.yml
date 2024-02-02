@@ -1,12 +1,12 @@
 ---
 development:
   dialect: "sqlite3"
-  database: /home/casas/Code/fortihoney_fortihoney_development.sqlite
+  database: ./fortihoney_fortihoney_development.sqlite
 
 test:
   dialect: "sqlite3"
-  database: /home/casas/Code/fortihoney_fortihoney_test.sqlite
+  database: ./fortihoney_fortihoney_test.sqlite
 
 production:
   dialect: "sqlite3"
-  database: /home/casas/Code/fortihoney_fortihoney_production.sqlite
+  database: ./fortihoney_fortihoney_production.sqlite
