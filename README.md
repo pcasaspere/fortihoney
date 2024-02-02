@@ -3,6 +3,8 @@
 ## Disclaimer
 **IMPORTANT:** This honeypot software is developed for educational and research purposes only. The primary aim is to study and improve security measures, not to engage in or encourage illegal activities. Any misuse of this software for purposes other than those stated, including unauthorized access to computer systems, is strictly prohibited and may be illegal under local, state, federal, or international law. By using this software, you agree to use it responsibly, ethically, and within the bounds of legality. The developers and distributors of this software bear no responsibility for any illicit or unauthorized use.
 
+![banner](images/banner.png)
+
 ## Overview
 FortiHoney simulates the login portal of a FortiGate firewall to act as a honeypot, attracting malicious actors attempting unauthorized access. When an attacker tries to log in, the honeypot captures and logs their IP address, username, and password. This project aims to provide security researchers and IT professionals with a tool to identify potential threats and analyze attack patterns without exposing real network assets.
 
