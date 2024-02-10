@@ -111,5 +111,5 @@ func loginUserCheckHandler(c buffalo.Context) error {
 
 	c.Flash().Add("error", "Error: Permission denied.")
 
-	return c.Redirect(http.StatusFound, "loginViewPath()")
+	return c.Render(http.StatusTemporaryRedirect, r.HTML("views/login.plush.html"))
 }
